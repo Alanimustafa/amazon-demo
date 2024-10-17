@@ -62,14 +62,15 @@ document.querySelectorAll('.js-add-to-cart')
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
 
-  let matchingItem ;
-
+    // Using the forEach Loop on Cart to check if the item is already in the cart or not.
+    let matchingItem ;
     cart.forEach((item) => {
+      // if the item is already in the cart that mean the item is matched.
       if (productId === item.productId) {
         matchingItem = item;
       }
       });
-
+      // if the matchingitem comes "true" then update the matchingItem quantity and increase its total by 1. if Not true, that's mean the item is new in the cart and we just add it to the cart array.
       if (matchingItem) {
         matchingItem.quantity += 1;
       } else {
@@ -78,6 +79,15 @@ document.querySelectorAll('.js-add-to-cart')
           quantity: 1
         });    
       }
-    console.log(cart);
+
+      // Using the forEach loop for the "cart" array and add the item quantity to the cart quantity as the total quantity.
+      let cartQuantity = 0;
+      cart.forEach((item) => {
+        cartQuantity += item.quantity;
+      })
+
+      // Using DOM to update the total quantity at the top right on the amazon home page.
+      document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
   });
 });
